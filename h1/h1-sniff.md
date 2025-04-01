@@ -6,7 +6,7 @@ Tehtävänanto: https://terokarvinen.com/verkkoon-tunkeutuminen-ja-tiedustelu/#h
 Karvinen 2025: [Wireshark - Getting Started](https://terokarvinen.com/wireshark-getting-started/)
 * WireShark on johtava verkkoanalysaattori ja -snifferi.
 * Asennus `sudo apt-get install wireshark`, käyttäjän lisäys wireshark ryhmään `sudo adduser tero wireshark`.
-* Valitse verkkoliitäntä jonka liikennettä haluat seurat. Tallenna vain se liikenne jota haluat tarkastella, jonka jälkeen lopeta tallenna. Jälkikäteen on helpompi tarkestalla teidostoa, jossa on pienempi määrä liikennettä.
+* Valitse verkkoliitäntä jonka liikennettä haluat seurat. Tallenna vain se liikenne jota haluat tarkastella, jonka jälkeen lopeta tallenne. Jälkikäteen on helpompi tarkestalla teidostoa, jossa on pienempi määrä liikennettä.
 * Hakufilttereitä:
   * dns
   * tls
