@@ -5,9 +5,11 @@ Tehtävänanto: https://terokarvinen.com/verkkoon-tunkeutuminen-ja-tiedustelu/#h
 ## x) Lue ja vastaa lyhyesti kysymyksiin.
 Selitä tuskan pyramidin idea 1-2 virkeellä. Bianco 2013: [Pyramid of Pain](https://detect-respond.blogspot.com/2013/03/the-pyramid-of-pain.html).
 * Tuskan pyramidin idea on kuvata kuinka paljon haittaa hyökkääjälle aiheutuu, kun puolustaja havaitsee jonkin estää jonkin tähän liittyvän tunnisteen.
-* Mitä ylemmäs pyramidissa mennään, niin sitä haitallisempi sen estäminen hyökkääjälle.
+* Mitä ylemmäs pyramidissa mennään, niin sitä haitallisempi tunnisteen estäminen hyökkääjälle.
 
 Selitä timattimallin (Diamond Model) idea 1-2 virkkeellä. Caltagirone et al 2013: [Diamond Model](https://www.threatintel.academy/wp-content/uploads/2020/07/diamond-model.pdf).
+* Timanttimalli on tunkeutumisten analysoinnissa käytetty tapa jakaa tunkeutuminen neljään ominaisuuteen, hyökkääjään, kyvykkyyteen, infrastruktuuriin ja kohteeseen.
+* Nimi timanttimalli tulee siitä, että ominaisuudet ovat sijoitettu timantin kulmiin ja yhdistetty toisiinsa kuvaten niiden välisiä suhteita.
 
 ## a) Apache log. Asenna Apache-weppipalvelin paikalliselle virtuaalikoneellesi. Surffaa palvelimellesi salaamattomalla HTTP-yhteydellä, http://localhost . Etsi omaa sivulataustasi vastaava lokirivi. Analysoi yksi tällainen lokirivi, eli selitä sen kaikki kohdat.
 Päivitin paketit ja asensin apachen.
