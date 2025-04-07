@@ -65,10 +65,13 @@ Kävin tarkastamassa apachen `access.log` tiedoston skannauksen jälkeen ja alla
 
 ![image](https://github.com/user-attachments/assets/4bd780d2-5070-43eb-9fc6-01c00c9b974a)
 
-Sana Nmap löytyy lokeista suurimmasta osasta pyynnöistä, user-agent -kohdassa. Linkki, joka user user-agent -kohdassa ilmoitetaan (https://nmap.org/book/nse.html) ohjaa sivulle, jossa kerrotaani lisätietoja Nmap Scripting Enginestä. Voidaan olettaa, että käytetyt nmap skriptit tuottavat nämä lokitiedot. Lokien perusteella skriptit kokeilevat useiden eri resurssien hakemista eri metodeilla.
+Sana Nmap löytyy lokeista suurimmasta osasta pyynnöistä, user-agent -kohdassa. Linkki, joka user user-agent -kohdassa ilmoitetaan (https://nmap.org/book/nse.html) ohjaa sivulle, jossa kerrotaani lisätietoja Nmap Scripting Enginestä. Voidaan olettaa, että käytetyt nmap skriptit tuottavat nämä lokirivit. Lokien perusteella skriptit kokeilevat useiden eri resurssien hakemista eri metodeilla.
 
 Tämän lisäksi sana nmap löytyy pyynnöstä "GET /nmaplowercheck..... HTTP/1.1", josta lisää kohdassa i).
 
+Helpoin tapa tunnistaa porttiskannaus lokeista on putkittaa ne grepille ja käyttää optiota `-i` yhdessä hakusanan kanssa, jolloin näytetään kaikki hakua vastaavat tulokset riippumatta hakusanan kirjoitusasusta. Esimerkiksi `cat /var/log/apache2/access.log | grep -i "nmap"`. Tämä ei kuitenkaan toimi, jos nmap on muutettu olemaan käyttämättä kyseistä merkkijonoa.
+
+## e) Wire sharking. Sieppaa verkkoliikenne porttiskannatessa Wiresharkilla. Huomaa, että localhost käyttää "Loopback adapter" eli "lo". Tallenna pcap. Etsi kohdat, joilla on sana "nmap" ja kommentoi niitä.
 
 
 ## Lähteet
