@@ -4,7 +4,8 @@ Tehtävänanto: https://terokarvinen.com/verkkoon-tunkeutuminen-ja-tiedustelu/#h
 
 ## x) Lue ja vastaa lyhyesti kysymyksiin.
 Selitä tuskan pyramidin idea 1-2 virkeellä. Bianco 2013: [Pyramid of Pain](https://detect-respond.blogspot.com/2013/03/the-pyramid-of-pain.html).
-* Tuskan pyramidin idea on kuvata kuinka paljon haittaa hyökkääjälle aiheutuu, kun puolustaja havaitsee jonkin estää jonkin tähän liittyvän tunnisteen. Mitä ylemmäs pyramidissa mennään, niin sitä haitallisempi sen estäminen hyökkääjälle.
+* Tuskan pyramidin idea on kuvata kuinka paljon haittaa hyökkääjälle aiheutuu, kun puolustaja havaitsee jonkin estää jonkin tähän liittyvän tunnisteen.
+* Mitä ylemmäs pyramidissa mennään, niin sitä haitallisempi sen estäminen hyökkääjälle.
 
 Selitä timattimallin (Diamond Model) idea 1-2 virkkeellä. Caltagirone et al 2013: [Diamond Model](https://www.threatintel.academy/wp-content/uploads/2020/07/diamond-model.pdf).
 
@@ -43,7 +44,7 @@ Lokirivin analyysi:
 * `-`: Pyyntöä ei ohjattu toiselta sivulta.
 * `Mozilla/5.0 (X11; Linuz x86_64; rv:128.0) Gecko/20100101 Firefox/128.0`: Selaimen ilmoittama selainagentti.
 
-## b) Nmapped. Porttiskannaa oma weppipalvelimesi käyttäen localhost-osoitetta ja 'nmap -A' päällä. Selitä tulokset. (Pelkkä http-portti 80/tcp riittää)
+## b) Nmapped. Porttiskannaa oma weppipalvelimesi käyttäen localhost-osoitetta ja 'nmap -A' päällä. Selitä tulokset.
 
 Skannasin localhost ositteen, `nmap -A locahost`.
 
@@ -71,7 +72,9 @@ Tämän lisäksi sana nmap löytyy pyynnöstä "GET /nmaplowercheck..... HTTP/1.
 
 Helpoin tapa tunnistaa porttiskannaus lokeista on putkittaa ne grepille ja käyttää optiota `-i` yhdessä hakusanan kanssa, jolloin näytetään kaikki hakua vastaavat tulokset riippumatta hakusanan kirjoitusasusta. Esimerkiksi `cat /var/log/apache2/access.log | grep -i "nmap"`. Tämä ei kuitenkaan toimi, jos nmap on muutettu olemaan käyttämättä kyseistä merkkijonoa.
 
-## e) Wire sharking. Sieppaa verkkoliikenne porttiskannatessa Wiresharkilla. Huomaa, että localhost käyttää "Loopback adapter" eli "lo". Tallenna pcap. Etsi kohdat, joilla on sana "nmap" ja kommentoi niitä.
+## e) Wire sharking. Sieppaa verkkoliikenne porttiskannatessa Wiresharkilla.
+
+
 
 
 ## Lähteet
