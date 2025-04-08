@@ -80,7 +80,7 @@ Kännistin sieppauksen Wiresharkilla käyttäen lo-verkkoliitäntää. Tämän j
 
 Nopeasti katsottuna sieppaus sisältää 2345 pakettia, joista ensimmäiset 2000 ovat porttiskannauksesta johtuvia. Loput paketit ovat porttiin 80 kohdistuneesta skannauksesta johtuvia.
 
-Tutkittuani sovellukesssa filttereitä sain luotua haun "any http contains 'nmap'". Haun luominen onnistui kohdasta "Analyze" -> "Display Filter Expressions...", valitsemalla oikeat tiedot ja klikkaamalla "OK".
+Tutkittuani sovellukessa filttereitä sain luotua haun "any http contains 'nmap'". Haun luominen onnistui kohdasta "Analyze" -> "Display Filter Expressions...", valitsemalla oikeat tiedot ja klikkaamalla "OK".
 
 ![image](https://github.com/user-attachments/assets/efce760e-d8d6-4b2b-a668-b3550c11c50f)
 
