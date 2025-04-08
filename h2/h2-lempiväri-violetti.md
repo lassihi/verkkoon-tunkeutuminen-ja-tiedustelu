@@ -72,12 +72,34 @@ Sana Nmap löytyy lokeista suurimmasta osasta pyynnöistä, user-agent -kohdassa
 
 Tämän lisäksi sana nmap löytyy pyynnöstä "GET /nmaplowercheck..... HTTP/1.1", josta lisää kohdassa i).
 
-Helpoin tapa tunnistaa porttiskannaus lokeista on putkittaa ne grepille ja käyttää optiota `-i` yhdessä hakusanan kanssa, jolloin näytetään kaikki hakua vastaavat tulokset riippumatta hakusanan kirjoitusasusta. Esimerkiksi `cat /var/log/apache2/access.log | grep -i "nmap"`. Tämä ei kuitenkaan toimi, jos nmap on muutettu olemaan käyttämättä kyseistä merkkijonoa.
+Helpoin tapa tunnistaa porttiskannaus lokeista on putkittaa ne grepille ja käyttää optiota `-i` yhdessä hakusanan kanssa, jolloin näytetään kaikki hakua vastaavat tulokset riippumatta hakusanan kirjoitusasusta. Esimerkiksi `cat /var/log/apache2/access.log | grep -i "nmap"` apachen lokien tarkastamiseen. Tämä ei kuitenkaan toimi, jos nmap on muutettu olemaan käyttämättä kyseistä merkkijonoa.
 
 ## e) Wire sharking. Sieppaa verkkoliikenne porttiskannatessa Wiresharkilla.
 
+Kännistin sieppauksen Wiresharkilla käyttäen lo-verkkoliitäntää. Tämän jälkeen ajoin uudestaan komennon `nmap -A localhost`. Skannauksen jälkeen pysäytin sieppauksen. Nopeasti katsottuna sieppaus sisältää 2345 pakettia, joista ensimmäiset 2000 ovat porttiskannauksesta johtuvia. Loput paketit ovat porttiin 80 kohdistuneesta skannauksesta johtuvia.
 
+Tutkittuani sovellukesssa filttereitä sain luotua haun "any http contains 'nmap'". Haun luominen onnistui kohdasta "Analyze" -> "Display Filter Expressions...", valitsemalla oikeat tiedot ja klikkaamalla "OK".
 
+![image](https://github.com/user-attachments/assets/efce760e-d8d6-4b2b-a668-b3550c11c50f)
+
+Haun kriteerit täsmäsivät 25 pakettiin.
+
+![image](https://github.com/user-attachments/assets/bab62622-23ef-4c60-b32c-5d9bb34be086)
+
+Paketit ovat skannauksen niiden numeroiden perusteella skannauksen loppupäästä. Osoitteista on mahdotonta päätellä ovatko paketit nmapin vai apachen lähettämiä, mutta jokaisen paketin info osiosta huomataan, että ne kaikki sisältävät jonkinlaisen HTTP-metodin, eli ovat nmapin lähettämiä. Huomasin pakettien myös vastaavan suhteellisen tarkasti kohdassa d) tutkimiani Apachen lokeja.
+
+## f) Net grep. Sieppaa verkkoliikenne 'ngrep' komennolla ja näytä kohdat, joissa on sana "nmap".
+Ngrep ei ole itselleni entuudestaan tuttu, joten jouduin hieman tutkimaan sen man-sivuja. Sain tehtyä seuraavan komennon `sudo ngrep -iC -d lo "nmap"`.
+
+Komennon kohta:
+* `sudo ngrep`: ajaa ngrepin pääkäyttäjänä
+* `-iC`: ei välitä isoista tai pienistä kirjaimista, värittää sanan tulosteessa
+* `-d lo`: käyttää loopback-adapteria
+* `"nmap"`: hakee sanalla nmap
+
+Ajoin komennon ja avasin toisen välilehden, jolla suoritin porttiskannauksen `nmap -A localhost`. Ngrep tulokset näkyvät alla.
+
+![image](https://github.com/user-attachments/assets/1a7e1441-f9cc-4f7d-8400-7c03be255605)
 
 ## Lähteet
 
