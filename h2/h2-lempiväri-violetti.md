@@ -32,7 +32,7 @@ Otin tiedostosta analysoitavaksi ensimmäisen sivun latauksesta syntyneen lokiri
 
 ![image](https://github.com/user-attachments/assets/a0ff2510-13dc-4a8d-aa6c-5d2fda227745)
 
-Olin selittänyt Apachen lokit Linux palvelimet tehtävässä h3 (https://github.com/lassihi/linux-course/blob/main/h3/h3-hello-web-server.md).
+Olin selittänyt Apachen lokit Linux palvelimet -kurssin tehtävässä h3 (https://github.com/lassihi/linux-course/blob/main/h3/h3-hello-web-server.md).
 
 "Vasemmalta oikealle lokitietoja tarkastelemalla ilmoitetaan ensiksi IP-osoite, josta pyyntö tulee. Seuraavat kaksi viivaa liittyvät käyttäjän tunnistamiseen. Pyydetyt tiedot olivat julkisia, joten tunnistusta ei tehty. Seuraava tieto lokissa kertoo pyynnön ajankohdan, jonka jälkeen ilmoitetaan itse pyyntö. Pyynnöstä selviää pyynnön tyyppi, esim. "GET", pyydetyt resurssit ja käytetty protokolla. Tämän jälkeen ilmoitetaan statuskoodi, jonka palvelin lähettää käyttäjälle, jota seuraa vastauksen pituus tavuina. Seuraavaksi ilmoitetaan osoite, josta pyyntö ohjattiin luomaan. Viimeisenä ilmoitetaan tiedot pyynnön luoneesta selaimesta."
 
