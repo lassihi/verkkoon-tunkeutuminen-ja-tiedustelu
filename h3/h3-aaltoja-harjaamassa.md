@@ -14,7 +14,7 @@ Cornelius 2022: [Decode 433.92 MHz weather station data](https://www.onetransist
 
 ## a) WebSDR. Etäkäytä WebSDR-ohjelmaradiota, joka on kaukana sinusta ja kuuntele radioliikennettä. Radioliikenne tulee siepata niin, että radiovastaanotin on joko eri maassa tai vähintään 400 km paikasta, jossa teet tätä tehtävää. Käytä esimerkkinä julkista, suurelle yleisölle tarkoitettua viestiä, esimerkiksi yleisradiolähetystä. Kerro löytämäsi taajuus, aallonpituus ja modulaatio. Kuvaile askeleet ja ota ruutukaappaus.
 
-Kuuntelin Corinnessa, Utahin osavaltiossa Yhdysvalloissa sijaitsevaa WebSDR-radiota (http://websdr3.sdrutah.org:8903/index1a.html), jonka löysin http://websdr.org sivulta. Äänen kytkin päälle keltaisesta "Chrome audio start" -napista.
+Kuuntelin Corinnessa, Utahin osavaltiossa Yhdysvalloissa sijaitsevaa "Northern Utah WebSDR - Server #3" WebSDR-radiota (http://websdr3.sdrutah.org:8903/index1a.html), jonka löysin http://websdr.org sivulta. Äänen kytkin päälle keltaisesta "Chrome audio start" -napista.
 
 ![image](https://github.com/user-attachments/assets/175c1fa9-621b-4cb1-a000-8b968bfc39d8)
 
@@ -22,7 +22,7 @@ Taajuudella 15575 kHz kuului radiokanava, jossa keskusteltiin noin puolen tunnin
 
 ![image](https://github.com/user-attachments/assets/beeb350a-e8ae-4d69-bc63-217970afca3d)
 
-Käytin AM-modulaatiota ja noin 10 kHz kaistanleveyttä. 
+Käytin amplitudi modulaatiota (AM) ja noin 10 kHz kaistanleveyttä. 
 
 ![image](https://github.com/user-attachments/assets/33c10ded-190c-4c90-aa77-199fecfbe377)
 
@@ -31,7 +31,7 @@ Googlasin lähetyksen taajuuden ja sivusto shortwaveschedule.com antoi tulokseks
 ![image](https://github.com/user-attachments/assets/3831ec75-80dd-4881-b774-7a68eebeae10)
 
 ## b) rtl_433. Asenna rtl_433 automaattista analyysia varten. Kokeile, että voit ajaa sitä. './rtl_433' vastaa "rtl_433 version 25.02 branch..."
-Käynnistin virtuaalikoneen ja päivitin paketit, `sudo apt-get update`.
+Käynnistin Kali virtuaalikoneen ja päivitin paketit, `sudo apt-get update`.
 
 Kalille rtl_433-sovelluksen asennus onnistui helposti paketinhallinnasta, `sudo apt-get install rtl-433`.
 
@@ -48,19 +48,19 @@ Avasin Converted_433.92M_2000k.cs8 tiedoston rtl_433:lla. Alla analyysi kokonais
 
 Analyysistä huomataan, että tiedosto sisältää kolmen laitemallin (model) signaaleja, KlikAanKlikUit-Switch, Proove-Security ja Nexa-Security. Näiden signaalit on vastaanotettu aina samaan aikaan. Signaalit toistuvat aikaleiman perusteella aina noin 0,08 sekuntin välein. Lisäksi kaikilla Malleilla on sama id/House Code -tunniste "8785315". 
 
-Koska en aiheesta juurikaan tiedä, niin lähdin etsimään lisää tietoa. Kohdan x) artikkelista Decode 433.92 MHz weather station data, löytyy linkki rtl_433 decoder tietokantaan (https://triq.org/explorer/). Tänne syötin hakusanaksi "Klik" ja löysin kaksi decoderia.
+Koska en aiheesta juurikaan tiedä, niin lähdin etsimään lisää tietoa. Kohdan x) artikkelista [Decode 433.92 MHz weather station data](https://www.onetransistor.eu/2022/01/decode-433mhz-ask-signal.html), löytyy linkki rtl_433 decoder tietokantaan (https://triq.org/explorer/). Tänne syötin hakusanaksi "Klik" ja löysin kaksi decoderia.
 
 ![image](https://github.com/user-attachments/assets/4eff2d16-6045-4fc6-bad0-80fd41361dad)
 
-Näiden lähdekoodia ja rtl_433-tulostetta vertailemalla päättelin käytetyt decoderit:
+Näiden lähdekoodia ja rtl_433-tulostetta vertailemalla päättelin analyysissä käytetyt decoderit:
 * KlikAanKlikUit-Switch: https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c eli "newkaku"
 * Proove-Security ja Nexa-Security: https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c eli "proove"
 
 Löytämäni perusteella näyttäisi olevan kyse siitä, että KlikAanKlikUit, Nexa ja Proove -merkin laitteet käyttävät kaikki samanlaista signaalia, joten niiden tunnistaminen toisistaan ei juurikaan ole mahdollista. Analysoimassani sieppauksessa on siis todennäköisesti alun perin käytetty vain yhden edellä mainitun merkin laitetta, mutta koska rtl_433 ei pysty erottamaan niitä, niin se näyttää signaalin purettuna jokaisen merkin mukaan, joka selittäisi myös identtiset aikaleimat.
 
-Harjoituksen tehtävänannon viimeisessä kohdassa "Siinä Nexan pistorasian kaukosäätimen valon 1 ON -nappia on painettu kolmesti" mainitaan käytetyn laitteen olevan Nexa merkisen pistorasian kaukosäädin, joten puretaan "Nexa-Security" mallin analyysi hieman tarkemmin. 
+Harjoituksen kohtien f) ja g) tehtvänannossa mainitaan käytetyn laitteen olevan Nexa merkisen pistorasian kaukosäädin, joten puretaan "Nexa-Security" mallin analyysi hieman tarkemmin. 
 
-Decoderin "[proove](https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c)" lähdekoodin kommenttien perusteella signaali koostuu yhteensä 32-38 bitistä. Ensimmäiset 26 bittiä ovat lähettäjän yksilöllinen koodi, jonka vastaanotin oppii tunnistamaan. Seuraavat 6 bittiä määrittävät erilaisia tunnisteita (channel, state, yms.). Viimeiset 6 ovat vapaaehtoisia ja määrittävät mahdollisia himmennykseen (dim) liittyviä arvoja. 
+Nexan kyttämän decoderin "[proove](https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c)" lähdekoodin kommenttien perusteella signaali koostuu yhteensä 32-38 bitistä. Ensimmäiset 26 bittiä ovat lähettäjän yksilöllinen koodi, jonka vastaanotin oppii tunnistamaan. Seuraavat 6 bittiä määrittävät erilaisia tunnisteita (channel, state, yms.). Viimeiset 6 ovat vapaaehtoisia ja määrittävät mahdollisia himmennykseen (dim) liittyviä arvoja. 
 
 * "time": aika sieppauksen alusta, jolloin signaali havaittu
 * "model": laitteen malli, jonka rtl_433 päättelee sen signaalista
@@ -92,7 +92,7 @@ Analyysin perusteella näyte on sama kuin tehtävässä c).
 
 ## e) Ultimate. Asenna URH, the Ultimate Radio Hacker.
 
-Tehvävän vinkkien mukaan asensin python sovellusten latausta varten pipx:n, `sudo apt-get install pipx`
+Tehvävän vinkkien mukaan asensin python sovellusten lataukseen tarkoitetun pipx:n, `sudo apt-get install pipx`
 
 Yritin asentaa urh:n.
 
@@ -116,9 +116,10 @@ Yritin urh:n asennusta uudelleen.
 
 Sain saman virheen, vaikka olin juuri asentanut Cythonin.
 
-Sama ongelma oli muilla tullut vastaan liian uuden Python version vuoksi (https://github.com/jopohl/urh/issues/1064), joten päätin asentaa sovelluksen suoraan lähdekoodista. Komennot sovelsin urh:n GitHub-ohjeista (https://github.com/jopohl/urh).
+Sama ongelma oli muilla tullut vastaan liian uuden Python version vuoksi (https://github.com/jopohl/urh/issues/1064), joten päätin asentaa sovelluksen suoraan lähdekoodista. Ennen urh:n asennusta asensin tähän vaadittavat työkalut, `sudo apt-get install python3-setuptools`.
 
-    sudo apt-get install python3-setuptools       #Asennukseen vaadittavien työkalujen asennus
+Asennuksen ohjeet löytyivät urh:n GitHub-ohjeista (https://github.com/jopohl/urh).
+
     git clone https://github.com/jopohl/urh/      #urh GitHub repon kloonaus
     cd urh                                        #urh hakemistoon siirtyminen
     sudo python setup.py install                  #urh:n asennus
@@ -152,7 +153,7 @@ Tämän vaihdettuani näytteen kestoksi ilmoitettiin 2.75 sekuntia.
 Zoomasin aivan signaalin alkuun, jotta amplitudia, taajuutta ja suuntaa olisi helppo tutkia.
 ![image](https://github.com/user-attachments/assets/0fed565c-2438-4d7b-9c4f-aa76f0078a96)
 
-Huomasin, että signaalin amplitudissa on selvästi huomattavin vaihtelu ja se vastasi artikkelin Decode 433.92 MHz weather station data signaalia, jonka moduloinnissa käytettiin ASK:ta (Amplitude Shift Keying). Valitsin modulaatioksi siis ASK ja klikkasin "Autodetect parameters". Tämän jälkeen bitit ruudun alareunassa päivittyivät. Valitsin ensimmäisen bitin "1".
+Huomasin, että signaalin amplitudissa on selvästi huomattavin vaihtelu ja se vastasi artikkelin [Decode 433.92 MHz weather station data](https://www.onetransistor.eu/2022/01/decode-433mhz-ask-signal.html) signaalia, jonka moduloinnissa käytettiin ASK:ta (Amplitude Shift Keying). Valitsin modulaatioksi siis ASK ja klikkasin "Autodetect parameters". Tämän jälkeen bitit ruudun alareunassa päivittyivät. Valitsin ensimmäisen bitin "1".
 
 ![image](https://github.com/user-attachments/assets/45df2eb3-ddc9-4d8f-a121-d2bf4e31e6e9)
 
@@ -163,6 +164,8 @@ Pyysin ChatGPT 4o-versiota uudessa keskustelussa vertaamaan 261 mikrosekuntia jo
 ![image](https://github.com/user-attachments/assets/8ad45759-8e6a-427b-8e85-6c43d0ca0f64)
 
 ## Lähteet
+Iso-Anttila, Karvinen 2025: Verkkoon tunkeutuminen ja tiedustelu: https://terokarvinen.com/verkkoon-tunkeutuminen-ja-tiedustelu/
+
 Hubacek 2019: Universal Radio Hacker SDR Tutorial on 433 MHz radio plugs: https://www.youtube.com/watch?v=sbqMqb6FVMY&t=199s
 
 Cornelius 2022: Decode 433.92 MHz weather station data: https://www.onetransistor.eu/2022/01/decode-433mhz-ask-signal.html
