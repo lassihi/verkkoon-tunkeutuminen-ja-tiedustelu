@@ -53,7 +53,7 @@ Koska en aiheesta juurikaan tiedä, niin lähdin etsimään lisää tietoa. Kohd
 ![image](https://github.com/user-attachments/assets/4eff2d16-6045-4fc6-bad0-80fd41361dad)
 
 Näiden lähdekoodia ja rtl_433-tulostetta vertailemalla päättelin käytetyt decoderit:
-* KlikAanKlikUit-Switch: https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c#L87 eli "newkaku"
+* KlikAanKlikUit-Switch: https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c eli "newkaku"
 * Proove-Security ja Nexa-Security: https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c eli "proove"
 
 Löytämäni perusteella näyttäisi olevan kyse siitä, että KlikAanKlikUit, Nexa ja Proove -merkin laitteet käyttävät kaikki samanlaista signaalia, joten niiden tunnistaminen toisistaan ei juurikaan ole mahdollista. Analysoimassani sieppauksessa on siis todennäköisesti alun perin käytetty vain yhden edellä mainitun merkin laitetta, mutta koska rtl_433 ei pysty erottamaan niitä, niin se näyttää signaalin purettuna jokaisen merkin mukaan, joka selittäisi myös identtiset aikaleimat.
@@ -116,7 +116,7 @@ Yritin urh:n asennusta uudelleen.
 
 Sain saman virheen, vaikka olin juuri asentanut Cythonin.
 
-Sama ongelma oli muilla tullut vastaan liian uuden Python version vuoksi (https://github.com/jopohl/urh/issues/1064), joten päätin asentaa sovelluksen suoraan lähdekoodista. 
+Sama ongelma oli muilla tullut vastaan liian uuden Python version vuoksi (https://github.com/jopohl/urh/issues/1064), joten päätin asentaa sovelluksen suoraan lähdekoodista. Komennot sovelsin urh:n GitHub-ohjeista (https://github.com/jopohl/urh).
 
     sudo apt-get install python3-setuptools       #Asennukseen vaadittavien työkalujen asennus
     git clone https://github.com/jopohl/urh/      #urh GitHub repon kloonaus
@@ -141,7 +141,7 @@ Yleiskuvan perusteella näyttää siltä, että näytteessä on lähetetty suuri
 
 ![image](https://github.com/user-attachments/assets/2bc4e553-1bca-410e-a0e3-2413a81a1e03)
 
-Ikkunassa näkyi tiedoston nimi, sijainti, koko, aika jolloin sen latasin, näytteiden määrän ja kesto. Oletuksena ikkunassa näytteenottotaajuus oli 1 MSps, mutta pystyin sen vaihtamaan tiedoston nimessä ilmoitettuun 2MSps.
+Ikkunassa näkyi tiedoston nimi, sijainti, koko, aika jolloin sen latasin, näytteiden määrä ja kesto. Oletuksena ikkunassa näytteenottotaajuus oli 1 MSps, mutta pystyin sen vaihtamaan tiedoston nimessä ilmoitettuun 2MSps.
 
 ![image](https://github.com/user-attachments/assets/9e15fdea-6d23-45fe-a648-6664474213b8)
 
@@ -152,25 +152,33 @@ Tämän vaihdettuani näytteen kestoksi ilmoitettiin 2.75 sekuntia.
 Zoomasin aivan signaalin alkuun, jotta amplitudia, taajuutta ja suuntaa olisi helppo tutkia.
 ![image](https://github.com/user-attachments/assets/0fed565c-2438-4d7b-9c4f-aa76f0078a96)
 
-Huomasin, että signaalin amplitudissa on selvästi huomattavin vaihtelu ja se vastasi artikkelin Decode 433.92 MHz weather station data signaalia, jolloin käytettiin ASK:ta (Amplitude Shift Keying). Valitsin modulaatioksi siis ASK ja klikkasin "Autodetect parameters". Tämän jälkeen bitit ruudun alareunassa päivittyivät. Valitsin ensimmäisen bitin "1".
+Huomasin, että signaalin amplitudissa on selvästi huomattavin vaihtelu ja se vastasi artikkelin Decode 433.92 MHz weather station data signaalia, jonka moduloinnissa käytettiin ASK:ta (Amplitude Shift Keying). Valitsin modulaatioksi siis ASK ja klikkasin "Autodetect parameters". Tämän jälkeen bitit ruudun alareunassa päivittyivät. Valitsin ensimmäisen bitin "1".
 
 ![image](https://github.com/user-attachments/assets/45df2eb3-ddc9-4d8f-a121-d2bf4e31e6e9)
 
 Bittiä vastaavan signaalin kestoksi urh ilmoitti 261.00 µs (mikrosekuntia, eli sekunnin miljoonasosaa). 
 
-Pyysin ChatGPT 4o-versiota uudessa keskustelussa vertaamaan 261 mikrosekunttia johonkin.
+Pyysin ChatGPT 4o-versiota uudessa keskustelussa vertaamaan 261 mikrosekuntia johonkin.
 
 ![image](https://github.com/user-attachments/assets/8ad45759-8e6a-427b-8e85-6c43d0ca0f64)
 
 ## Lähteet
-https://www.youtube.com/watch?v=sbqMqb6FVMY&t=199s
+Hubacek 2019: Universal Radio Hacker SDR Tutorial on 433 MHz radio plugs: https://www.youtube.com/watch?v=sbqMqb6FVMY&t=199s
 
-https://www.onetransistor.eu/2022/01/decode-433mhz-ask-signal.html
+Cornelius 2022: Decode 433.92 MHz weather station data: https://www.onetransistor.eu/2022/01/decode-433mhz-ask-signal.html
 
-http://websdr3.sdrutah.org:8903/index1a.html
+Northern Utah WebSDR - Server #3: http://websdr3.sdrutah.org:8903/index1a.html
 
-https://shortwaveschedule.com/index.php?freq=15575
+ShortwaveSchedule.com 2025: frequency 15575: https://shortwaveschedule.com/index.php?freq=15575
 
-https://fi.wikipedia.org/wiki/Korean_Broadcasting_System
+Wikipedia 2024: Korean Broadcasting System: https://fi.wikipedia.org/wiki/Korean_Broadcasting_System
 
-https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c#L87
+Triq.org 2024: Decoder & Sample Explorer: https://triq.org/explorer/
+
+Merbanan: newkaku.c https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c
+
+Merbanan: proove.c https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c
+
+tomcass240 2023: You need Cython to build URH's extensions!: https://github.com/jopohl/urh/issues/1064
+
+ChatGPT 4o: Prompt "Compare 261 microseconds to something"
