@@ -12,8 +12,6 @@ Cornelius 2022: [Decode 433.92 MHz weather station data](https://www.onetransist
 * Käytetty rlt_433-ohjelmaa 433,92 MHz nauhoitteen automaattiseen analysointiin.
 * URH:lla signaalin sieppaus ja analisointi.
 
-Vapaaehtoinen, vaikeahko: Lohner 2019: [Decoding ASK/OOK_PPM Signals with URH and rtl_433](https://github.karllohner.com/SDR/Decoding/Example_2019-01-24/)
-
 ## a) WebSDR. Etäkäytä WebSDR-ohjelmaradiota, joka on kaukana sinusta ja kuuntele radioliikennettä. Radioliikenne tulee siepata niin, että radiovastaanotin on joko eri maassa tai vähintään 400 km paikasta, jossa teet tätä tehtävää. Käytä esimerkkinä julkista, suurelle yleisölle tarkoitettua viestiä, esimerkiksi yleisradiolähetystä. Kerro löytämäsi taajuus, aallonpituus ja modulaatio. Kuvaile askeleet ja ota ruutukaappaus.
 
 Kuuntelin Corinnessa, Utahin osavaltiossa Yhdysvalloissa sijaitsevaa WebSDR-radiota (http://websdr3.sdrutah.org:8903/index1a.html), jonka löysin http://websdr.org sivulta. Äänen kytkin päälle keltaisesta "Chrome audio start" -napista.
@@ -56,9 +54,22 @@ Koska en aiheesta juurikaan tiedä, niin lähdin etsimään lisää tietoa. Kohd
 
 Näiden lähdekoodia ja rtl_433-tulostetta vertailemalla päättelin käytetyt decoderit:
 * KlikAanKlikUit-Switch: https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c#L87 eli "newkaku"
-* Proove-Security ja Nexa-Security: https://github.com/merbanan/rtl_433/blob/master/src/devices/newkaku.c#L87 eli "proove"
+* Proove-Security ja Nexa-Security: https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c eli "proove"
 
 Löytämäni perusteella näyttäisi olevan kyse siitä, että KlikAanKlikUit, Nexa ja Proove -merkin laitteet käyttävät kaikki samanlaista signaalia, joten niiden tunnistaminen toisistaan ei juurikaan ole mahdollista. Analysoimassani sieppauksessa on siis todennäköisesti alun perin käytetty vain yhden edellä mainitun merkin laitetta, mutta koska rtl_433 ei pysty erottamaan niitä, niin se näyttää signaalin purettuna jokaisen merkin mukaan, joka selittäisi myös identtiset aikaleimat.
+
+Harjoituksen tehtävänannon viimeisessä kohdassa "Siinä Nexan pistorasian kaukosäätimen valon 1 ON -nappia on painettu kolmesti" mainitaan käytetyn laitteen olevan Nexa merkisen pistorasian kaukosäädin, joten puretaan "Nexa-Security" mallin analyysi hieman tarkemmin. 
+
+Decoderin "[proove](https://github.com/merbanan/rtl_433/blob/master/src/devices/proove.c)" lähdekoodin kommenttien perusteella signaali koostuu yhteensä 32-38 bitistä. Ensimmäiset 26 bittiä ovat lähettäjän yksilöllinen koodi, jonka vastaanotin oppii tunnistamaan. Seuraavat 6 bittiä määrittävät erilaisia tunnisteita (channel, state, yms.). Viimeiset 6 ovat vapaaehtoisia ja määrittävät mahdollisia himmennykseen (dim) liittyviä arvoja. 
+
+* "time": aika sieppauksen alusta, jolloin signaali havaittu
+* "model": laitteen malli, jonka rtl_433 päättelee sen signaalista
+* "House Code": id (mahdollisesti bitit 0-26)
+* "Channel": kanava, jolla signaali lähetetty (signaalin 29. ja 30. bitti)
+* "State": tila, johon pistorasio asetetaan (signaalin 28. bitti)
+* "Unit": pistorasia, jolle signaali tarkoitettu (signaalin 31. ja 32. bitti)
+* "Group": 0=off, 1=on, todennäköisesti säätelee kohdistuuko signaali yhteen vai useampaan laitteeseen (signaalin 27. bitti)
+
 
 ## d) Too compex 16? Olet nauhoittanut näytteen 'urh' -ohjelmalla .complex16s-muodossa. Muunna näyte rtl_433-yhteensopivaan muotoon ja analysoi se. Näyte Recorded-HackRF-20250411_183354-433_92MHz-2MSps-2MHz.complex16s
 Latasin tiedoston ja kotitehtävien vinkkien avulla vaihdoin nimen rtl_433-yhteensopivaksi.
@@ -77,7 +88,7 @@ Analysoin tiedoston.
 
 ![image](https://github.com/user-attachments/assets/6d0b71f1-8f2e-499e-8bc2-82cfc9691f79)
 
-Analyysin perusteella näyte on sama kuin tehtävässä c)
+Analyysin perusteella näyte on sama kuin tehtävässä c).
 
 ## e) Ultimate. Asenna URH, the Ultimate Radio Hacker.
 
@@ -105,9 +116,52 @@ Yritin urh:n asennusta uudelleen.
 
 Sain saman virheen, vaikka olin juuri asentanut Cythonin.
 
-Sama ongelma oli muilla tullut vastaan liian uuden Python version vuoksi (https://github.com/jopohl/urh/issues/1064). Päätin asentaa Urh:n suoraan GitHubin koodista.
+Sama ongelma oli muilla tullut vastaan liian uuden Python version vuoksi (https://github.com/jopohl/urh/issues/1064), joten päätin asentaa sovelluksen suoraan lähdekoodista. 
 
-Sain sa
+    sudo apt-get install python3-setuptools       #Asennukseen vaadittavien työkalujen asennus
+    git clone https://github.com/jopohl/urh/      #urh GitHub repon kloonaus
+    cd urh                                        #urh hakemistoon siirtyminen
+    sudo python setup.py install                  #urh:n asennus
+
+Aennuksen jälkeen urh käynnistyi komennolla `urh`.
+
+![image](https://github.com/user-attachments/assets/69c04c18-f1d5-4e78-bb14-d135d8b7695d)
+
+## Tarkastele näytettä 1-on-on-on-HackRF-20250412_113805-433_912MHz-2MSps-2MHz.complex16s. Siinä Nexan pistorasian kaukosäätimen valon 1 ON -nappia on painettu kolmesti. Käytä Ultimate Radio Hacker 'urh' -ohjelmaa.
+
+Asensin näytteen virtuaalikoneelle.
+
+Avasin urh:n ja oikeasta yläkulmasta valitsin "File" -> "Open..." ja juuri lataamani näytteen.
+
+### f) Yleiskuva. Kuvaile näytettä yleisesti: kuinka pitkä, millä taajuudella, milloin nauhoitettu? Miltä näyte silmämääräisesti näyttää?
+
+![image](https://github.com/user-attachments/assets/ea7f834e-477d-452c-ba15-1a71fdcc05a9)
+
+Yleiskuvan perusteella näyttää siltä, että näytteessä on lähetetty suuri määrä signaaleja kolmeen otteeseen. Tiedoston nimen perusteella signaalin taajuus olisi 433.912 MHz ja näytteenottotaajuus 2MSps. "1: Complex Signal" -tekstin vieressä oli infonappi, jota painaessa sain hieman lisätietoja.
+
+![image](https://github.com/user-attachments/assets/2bc4e553-1bca-410e-a0e3-2413a81a1e03)
+
+Ikkunassa näkyi tiedoston nimi, sijainti, koko, aika jolloin sen latasin, näytteiden määrän ja kesto. Oletuksena ikkunassa näytteenottotaajuus oli 1 MSps, mutta pystyin sen vaihtamaan tiedoston nimessä ilmoitettuun 2MSps.
+
+![image](https://github.com/user-attachments/assets/9e15fdea-6d23-45fe-a648-6664474213b8)
+
+Tämän vaihdettuani näytteen kestoksi ilmoitettiin 2.75 sekuntia.
+
+### g) Bittistä. Demoduloi signaali niin, että saat raakabittejä. Mikä on oikea modulaatio? Miten pitkä yksi raakabitti on ajassa? Kuvaile tätä aikaa vertaamalla sitä johonkin. (Monissa singaaleissa on line encoding, eli lopullisia bittejä varten näitä "raakabittejä" on vielä käsiteltävä)
+
+Zoomasin aivan signaalin alkuun, jotta amplitudia, taajuutta ja suuntaa olisi helppo tutkia.
+![image](https://github.com/user-attachments/assets/0fed565c-2438-4d7b-9c4f-aa76f0078a96)
+
+Huomasin, että signaalin amplitudissa on selvästi huomattavin vaihtelu ja se vastasi artikkelin Decode 433.92 MHz weather station data signaalia, jolloin käytettiin ASK:ta (Amplitude Shift Keying). Valitsin modulaatioksi siis ASK ja klikkasin "Autodetect parameters". Tämän jälkeen bitit ruudun alareunassa päivittyivät. Valitsin ensimmäisen bitin "1".
+
+![image](https://github.com/user-attachments/assets/45df2eb3-ddc9-4d8f-a121-d2bf4e31e6e9)
+
+Bittiä vastaavan signaalin kestoksi urh ilmoitti 261.00 µs (mikrosekuntia, eli sekunnin miljoonasosaa). 
+
+Pyysin ChatGPT 4o-versiota uudessa keskustelussa vertaamaan 261 mikrosekunttia johonkin.
+
+![image](https://github.com/user-attachments/assets/8ad45759-8e6a-427b-8e85-6c43d0ca0f64)
+
 ## Lähteet
 https://www.youtube.com/watch?v=sbqMqb6FVMY&t=199s
 
