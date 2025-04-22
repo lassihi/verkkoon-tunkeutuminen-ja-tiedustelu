@@ -1,4 +1,5 @@
-# NFC JA RFID
+# Harjoitus 4: NFC JA RFID
+Kurssi: https://terokarvinen.com/verkkoon-tunkeutuminen-ja-tiedustelu/
 > Kotitehtävä:
 > 1. Tarkastele käytössäsi olevia RFID tuotteita, mieti miten hyvin olet suojautunut RFID urkinnalta?
 > 2. Tutustu APDU komentojen rakenteeseen (voit käyttää tekoälyä tutustumiseen)
