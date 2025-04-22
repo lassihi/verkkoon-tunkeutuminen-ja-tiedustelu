@@ -1,4 +1,4 @@
-# RFID
+# NFC JA RFID
 > Kotitehtävä:
 > 1. Tarkastele käytössäsi olevia RFID tuotteita, mieti miten hyvin olet suojautunut RFID urkinnalta?
 > 2. Tutustu APDU komentojen rakenteeseen (voit käyttää tekoälyä tutustumiseen)
@@ -17,7 +17,7 @@
 
    Lähde: https://en.wikipedia.org/wiki/Smart_card_application_protocol_data_unit
 
-3. Löysin usean tuoreen uutisen, jotka kaikki varoittavat liikkeellä olevasta huijauksesta. Huijauksessa hyökkääjä yrittää saada uhrin lataamaan Android puhelimelleen haittaohjelman ja syöttämään haittaohjelmaan pankkikorttin PIN-koodin. Tässä hyökkääjän onnistuttua, haittaohjelma pystyy lukemaan puhelinta lähellä olevan pankkikortin tiedot ja siirtämään siltä rahaa lähimaksun avulla.
+3. Löysin usean tuoreen uutisen, jotka kaikki varoittavat liikkeellä olevasta huijauksesta. Huijauksessa hyökkääjä yrittää saada uhrin lataamaan Android puhelimelleen haittaohjelman ja syöttämään haittaohjelmaan pankkikorttin PIN-koodin. Tässä hyökkääjän onnistuttua, haittaohjelma pystyy lukemaan puhelinta lähellä olevan pankkikortin tiedot ja siirtämään siltä rahaa NFC:n avulla.
 
    https://euroweeklynews.com/2025/04/22/new-nfc-phone-scam-survival-guide-fbi-spanish-tax-office-and-bank-warnings/ \
    https://www.bankinfosecurity.com/hackers-hijack-nfc-for-instant-payment-fraud-a-28060 \
