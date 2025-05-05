@@ -127,7 +127,7 @@ Yritin kirjautua sisään salaisella salasanallani.
 
 <img width="519" alt="image" src="https://github.com/user-attachments/assets/15416dcb-b0c7-48b7-b3d3-adc645aa0d4d" />
 
-Klikattuani "sign-in" evilginxiin tulostui käyttämäni käyttäjätunnus ja salasana.
+Syötettyäni salasanan, evilginxiin tulostui käyttämäni käyttäjätunnus ja salasana.
 
 <img width="342" alt="image" src="https://github.com/user-attachments/assets/0bb40f3b-7991-49df-98d2-b7748628a771" />
 
