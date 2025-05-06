@@ -142,3 +142,17 @@ Onnistuin luomaan paikallisesti huijaussivuston, joka matkii Microsoftin kirjaut
 Oikean julkisen huijaussivuston luominen olisi vielä omaa esimerkkiäni yksinkertaisempi, sillä voisi skipata paikallisten domainien määrittämisen ja varmenteenmyöntäjän lisäämisen selaimelle.
 
 ## b) Sinulla on käytössäsi mininet ympäristö. Luo ympäristö, jossa voit tehdä TCP SYN-Flood hyökkäyksen. Kirjoita miten loit mininet ympäristön ja miten toteutit hyökkäyksen.
+
+Asensin brian404:n SYN-flood scriptin GitHubista (https://github.com/brian404/SYN-flood).
+
+<img width="442" alt="image" src="https://github.com/user-attachments/assets/d4170271-29ea-4f61-8d1f-f3b45f42a003" />
+
+Kopioin sen mininet virtuaalikoneelle.
+
+<img width="430" alt="image" src="https://github.com/user-attachments/assets/a683421b-89fa-4f59-9900-2a544f21ec58" />
+
+Yhdistin mininet virtuaalikoneeseen.
+
+<img width="727" alt="image" src="https://github.com/user-attachments/assets/bd1dd9d8-aca7-422c-9a6b-876749f43ab8" />
+
+Käynnistin kolmen koneen mininet verkon.
