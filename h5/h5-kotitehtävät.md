@@ -22,7 +22,7 @@ Evilginx2 on MITM-työkalu kirjautumistunnusten ja evästeiden kalasteluun. Se t
 
 Siis käytännössä:
 1. Uhri klikkaa kalasteluviestissä olevaa kohdesivustoa esittävää linkkiä, joka todellisuudessa ohjaa Evilginx-palvelimelle.
-2. Evilginx hakee kohdesivuston ja se esittää sen käyttäjälle reaaliajassa, jolloin käyttäjä luulee olevansa suoraan yhteydessä kohdesivustoon.
+2. Evilginx hakee kohdesivuston ja se esittää sen uhrille reaaliajassa, jolloin uhri luulee olevansa suoraan yhteydessä kohdesivustoon.
 3. Käyttäjä kirjautuu sisään kohdesivustolle. Liikenne kulkee Evilginxin kautta, joka kerää kirjautumistiedot ja istunnon evästeet, ja esittää ne hyökkääjälle.
 
 ### Asensitko työkalun, jos asensit niin kirjoita miten sen teit.
@@ -37,7 +37,7 @@ Siirryin evilginx2 hakemistoon.
 
     cd evilginx2
 
-Loin binäärin go:n avulla (go oli entuudestaan ladattuna koneella).
+Loin evilginxin go:n avulla (go oli entuudestaan ladattuna koneella).
 
     make
 
@@ -74,7 +74,7 @@ Käynnistin evilginxin käyttäen uusia phishletteja. Evilginxin ajaminen paikal
 
 Kaikki hakemiston phishletit eivät ladanneet, mutta se ei tässä testissä haittaa.
 
-Määritin seuraavaksi evilginxille domainin ja IP-osoitteen.
+Määritin seuraavaksi evilginxille satunnaisen domainin ja paikallisen IP-osoitteen.
 
 <img width="526" alt="image" src="https://github.com/user-attachments/assets/27312510-0ea8-46fb-bd11-eea944d4d7cf" />
 
@@ -102,7 +102,7 @@ Loin tämän jälkeen luren, eli uhrille lähetettävän lopullisen linkin.
 <img width="261" alt="image" src="https://github.com/user-attachments/assets/7a9ba584-3f99-4343-820a-05552b198073" />
 
 Paikallisesti evilginxin ajaminen vaatii vielä evilginxin root CA:n lisäämisen selaimelle, salatun yhteyden muodostamiseksi. 
-Tätä ei tarvitse tehdä jos ajaa evilginxiä julkisessa IP osoitteessa, sillä se osaa hakea automaattisesti Let's Encryptin varmenteen.
+Tätä ei tarvitse tehdä jos ajaa evilginxiä normaalisti julkisessa IP osoitteessa, sillä se osaa hakea automaattisesti sertifikaatin Let's Encryptiltä.
 
     sudo cp /root/.evilginx/crt/ca.crt /usr/local/share/ca-certificates/evilginx.crt
     sudo update-ca-certificates
@@ -139,11 +139,15 @@ Jos kirjautuminen olisi onnistunut, niin Microsoft2024 phishlet-tiedoston perust
 
 Onnistuin luomaan paikallisesti huijaussivuston, joka matkii Microsoftin kirjautumista ja kerää kirjautumistiedot. Käyttämilläni asetuksilla huijaussivusto toimii vain omalla koneellani.
 
-Oikean julkisen huijaussivuston luominen olisi vielä omaa esimerkkiäni yksinkertaisempi, sillä voisi skipata paikallisten domainien määrittämisen ja varmenteenmyöntäjän lisäämisen selaimelle.
+Oikean julkisen huijaussivuston luominen olisi vielä omaa esimerkkiäni yksinkertaisempi, sillä voisi skipata paikallisten domainien määrittämisen (kuitenkin pitää domain olla osoittamassa evilgixin IP osoitteeseen) ja varmenteenmyöntäjän lisäämisen selaimelle.
 
 ## b) Sinulla on käytössäsi mininet ympäristö. Luo ympäristö, jossa voit tehdä TCP SYN-Flood hyökkäyksen. Kirjoita miten loit mininet ympäristön ja miten toteutit hyökkäyksen.
 
-Asensin brian404:n SYN-flood scriptin GitHubista (https://github.com/brian404/SYN-flood).
+Alotin käynnistämällä mininet virtuaalikoneen. Käynnistyksen jälkeen käynnistin sen verkko-ohjaimen.
+
+<img width="251" alt="image" src="https://github.com/user-attachments/assets/c1dba248-d480-44cb-96e0-a541ff005ba2" />
+
+Asensin brian404:n SYN-flood skriptin GitHubista (https://github.com/brian404/SYN-flood).
 
 <img width="442" alt="image" src="https://github.com/user-attachments/assets/d4170271-29ea-4f61-8d1f-f3b45f42a003" />
 
@@ -156,3 +160,57 @@ Yhdistin mininet virtuaalikoneeseen.
 <img width="727" alt="image" src="https://github.com/user-attachments/assets/bd1dd9d8-aca7-422c-9a6b-876749f43ab8" />
 
 Käynnistin kolmen koneen mininet verkon.
+
+<img width="545" alt="image" src="https://github.com/user-attachments/assets/a8abe8c1-56f2-4cdd-a61b-d4c2e2ad48a0" />
+
+Avasin h1:n terminaalin uuteen ikkunaan.
+
+<img width="120" alt="image" src="https://github.com/user-attachments/assets/576e6c0c-c644-49a3-9c9d-47dbe068befd" />
+
+Käynnistin tuntiharjituksen 01-Network-Security-Lab mukana tulleen tcp-palvelinta mukailevan python skriptin.
+
+<img width="239" alt="image" src="https://github.com/user-attachments/assets/d5763e82-ff2f-4564-a60b-b786037d4a92" />
+
+Avasin lisäksi toisen h1:n terminaalin, jossa käynnistin wiresharkin sieppaamaan liikennettä liitännästä h1-eth0.
+
+<img width="531" alt="image" src="https://github.com/user-attachments/assets/cc507222-fefe-44c6-8bd9-74a66f6a8321" />
+
+Avasin mininetistä h2 ja h3 nodejen terminaalit.
+
+<img width="130" alt="image" src="https://github.com/user-attachments/assets/6399c417-fcea-47b1-9799-b3cf5f677674" />
+
+H2:n terminaalissa ajoin tcp_client.py skriptin yhteyden testaamiseksi ilman TCP SYN-hyökkäystä.
+
+<img width="243" alt="image" src="https://github.com/user-attachments/assets/d59053a8-0851-44ce-9853-c52029ad0052" />
+
+Ajettuani skriptin h2 sai välittömästi vastauksen h1:n palvelimelta.
+
+Seuraavaksi käynnistin SYN flood hyökkäyksen h3:lla käyttäen lataamaani skriptiä.
+
+    python3 syn.py --port 12345 --method socket 10.0.0.1
+
+(kohdeportti 12345, sillä se on `tcp-server.py` ja `tcp-client.py` skriptien käyttämä portti)
+
+<img width="220" alt="image" src="https://github.com/user-attachments/assets/9bdbced4-838d-468d-8efd-0b2fcf9bd9a4" />
+
+H1:n wiresharkissa alkoi heti tapahtua komennon jälkeen. 
+
+Sen mukaan h1:n (10.0.0.1) ja h3:n (10.0.0.3) välillä liikennettä kulki noin 10000 pakettia sekunnissa.
+
+<img width="755" alt="image" src="https://github.com/user-attachments/assets/d1cfe5d3-f882-43b7-bc3e-614c416f5ec0" />
+
+Ajoin h2:lla `tcp_client.py` skriptin, mutta se sai välittömästi yhteyden h1:n palvelimeen. 
+
+Yritin tämän jälkeen samaa hyökkäystä uudessa ympäristössä neljällä hyökkääjällä, mutta lopputulos oli sama, tcp_client sai välittömästi yhteyden tcp_serveriin. En siis saanut aikaan h1:n palvelunestohyökkäystä, vaikka yhteensä paketteja h1-eth0 liitännässä liikkui wiresharkin mukaan noin 20000-30000 joka sekuntti. Ainoa asia mikä alkoi takkuilemaan oli mininet-virutaalikone, joten ainakin jonkinnäköisen palvelunestohyökkäyksen sain aikaan :D.
+
+Uskon, että en saanut näkyviä vaikutuksia aikaan tcp_clientin ja tcp_serverin välillä, sillä mininet ei tarpeeksi hyvin simuloi aitoa ympäristöä, jossa jokainen laite pyörii omilla resursseillaan. Voin kuitenkin olla väärässä ja liikennettä olisi tarvittu enemmän, tai testimenetelmäni oli ylipäätään virheellinen.
+
+## Lähteet
+
+kgretzky 2024: Evilginx 3.0: https://github.com/kgretzky/evilginx2
+
+Breakpoint Software Developement 2025: Introduction: https://help.evilginx.com/community
+
+simplerhacking 2024: Updated Evilginx3 Phishlets: https://github.com/simplerhacking/Evilginx3-Phishlets
+
+brian404 2024: SYN-flood: https://github.com/brian404/SYN-flood
