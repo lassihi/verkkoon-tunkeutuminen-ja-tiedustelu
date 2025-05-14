@@ -23,3 +23,10 @@ OPN & PSK harjoituksissa ei juurikaan oppinut uutta työkalujen käytön lisäks
 
 Harjoitus vahvisti hieman omaa alkuperäistä käsitystäni langattomien verkkojen turvattomuudesta, sekä vahvojen salasanojen tärkeydestä suojauksesta riippumatta.
 Wlan ei kuitenkaan ole lähdössä mihinkään, joten tulevaisuudessa ehkä mietin tarkemmin sitä, millaisiin verkkoihin langattomien tukiasemien liittäminen on kannattavaa.
+
+# Lähteet
+
+Iso-Anttila 2025: Larin luennot: https://hhmoodle.haaga-helia.fi/course/view.php?id=42566
+
+WiFiChallenge Lab: https://lab.wifichallenge.com
+
